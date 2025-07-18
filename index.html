@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Fire Top-Up</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('YOUR_BACKGROUND_IMAGE_URL'); /* Replace with your background image URL */
+            background-image: url('https://ibb.co/NdtTsbfz'); /* Replace with your background image URL */
             background-size: cover;
             background-position: center;
             color: #333;
@@ -124,7 +127,7 @@
 
 <div class="payment-info">
     <p style="font-weight:bold; color:#ff4d00;">Payment Information:</p>
-    <p>Pay using eSewa ID: <strong>9846642239</strong> (Bala Krishna Chalise)</p>
+    <p>Pay using eSewa ID: <strong>Vala Krishna Chalise</strong></p>
     <p>You will get diamonds within 15 to 20 minutes.</p>
 </div>
 
@@ -136,6 +139,21 @@
 <p>Contact us on WhatsApp: <a href="https://wa.me/9846642239">9846642239</a></p>
 
 <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBW-0FZPlZpB9kwoXF9ik6Iuasfk0AX8e4",
+        authDomain: "ff-detail-store.firebaseapp.com",
+        projectId: "ff-detail-store",
+        storageBucket: "ff-detail-store.firebasestorage.app",
+        messagingSenderId: "465286693019",
+        appId: "1:465286693019:web:3dd81a79147fd8bdef063e",
+        measurementId: "G-87PW2V6DP3"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
     document.getElementById('diamondSelect').addEventListener('change', function() {
         const price = this.value;
         const text = this.options[this.selectedIndex].text;
@@ -152,28 +170,25 @@
         event.preventDefault();
         const uid = document.getElementById('uid').value;
         const playerName = document.getElementById('playerName').value;
+        const payment = document.getElementById('diamondSelect').value; // Get the selected payment amount
 
-        // Send data to your server (you'll need to set this up)
-        fetch('YOUR_SERVER_ENDPOINT', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ uid, playerName })
+        // Save data to Firestore
+        db.collection("topups").add({
+            uid: uid,
+            playerName: playerName,
+            payment: payment,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(() => {
             alert('Top-up request submitted successfully!');
-            // Optionally reset the form
             document.getElementById('topupForm').reset();
         })
-        .catch(error => {
-            console.error('Error:', error);
+        .catch((error) => {
+            console.error("Error adding document: ", error);
             alert('There was an error submitting your request.');
         });
     });
 </script>
 
 </body>
-  </html>
-  
+</html>
