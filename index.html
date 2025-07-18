@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Top-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('YOUR_BACKGROUND_IMAGE_URL'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: rgba(255, 77, 0, 0.8); /* Free Fire color with transparency */
+            padding: 20px;
+            color: white;
+        }
+        .diamond-pricing {
+            margin: 20px;
+        }
+        .form-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ff4d00; /* Free Fire color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e65c00;
+        }
+        .select-box {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ff4d00;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .price-box {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff4d00;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(255, 77, 0, 0.2);
+        }
+        .payment-info {
+            margin: 20px 0;
+            background: #fff9f7;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed #ff4d00;
+        }
+        .trust-section {
+            margin: 20px;
+            padding: 15px;
+            background-color: #e0ffe0;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+        .trust-section h3 {
+            color: #4CAF50;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Free Fire Top-Up</h1>
+    <p>Cheapest Top-Up in Nepal</p>
+</header>
+
+<div class="diamond-pricing">
+    <h2>Diamond Pricing</h2>
+    <ul>
+        <li>25 Diamonds - 30 Rupees</li>
+        <li>50 Diamonds - 55 Rupees</li>
+        <li>115 Diamonds - 110 Rupees</li>
+        <li>240 Diamonds - 220 Rupees</li>
+        <li>610 Diamonds - 600 Rupees</li>
+        <li>1240 Diamonds - 1100 Rupees</li>
+    </ul>
+</div>
+
+<div class="form-container">
+    <h2>Top-Up Form</h2>
+    <form id="topupForm">
+        <input type="text" id="playerName" placeholder="Enter your Player Name" required>
+        <input type="text" id="uid" placeholder="Enter your UID" required>
+        <select id="diamondSelect" class="select-box" required>
+            <option value="">Select Diamond Package</option>
+            <option value="30">25 Diamonds</option>
+            <option value="55">50 Diamonds</option>
+            <option value="110">115 Diamonds</option>
+            <option value="220">240 Diamonds</option>
+            <option value="600">610 Diamonds</option>
+            <option value="1100">1240 Diamonds</option>
+        </select>
+        <div id="priceDisplay" class="price-box" style="display:none"></div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="payment-info">
+    <p style="font-weight:bold; color:#ff4d00;">Payment Information:</p>
+    <p>Pay using eSewa ID: <strong>9846642239</strong> (Bala Krishna Chalise)</p>
+    <p>You will get diamonds within 15 to 20 minutes.</p>
+</div>
+
+<div class="trust-section">
+    <h3>Garena Certified</h3>
+    <p>100% Trusted Website</p>
+</div>
+
+<p>Contact us on WhatsApp: <a href="https://wa.me/9846642239">9846642239</a></p>
+
+<script>
+    document.getElementById('diamondSelect').addEventListener('change', function() {
+        const price = this.value;
+        const text = this.options[this.selectedIndex].text;
+        const priceDisplay = document.getElementById('priceDisplay');
+        if (price) {
+            priceDisplay.innerHTML = `${text} = ${price} NPR`;
+            priceDisplay.style.display = 'block';
+        } else {
+            priceDisplay.style.display = 'none';
+        }
+    });
+
+    document.getElementById('topupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const uid = document.getElementById('uid').value;
+        const playerName = document.getElementById('playerName').value;
+
+        // Send data to your server (you'll need to set this up)
+        fetch('YOUR_SERVER_ENDPOINT', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ uid, playerName })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Top-up request submitted successfully!');
+            // Optionally reset the form
+            document.getElementById('topupForm').reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error submitting your request.');
+        });
+    });
+</script>
+
+</body>
+  </html>
+  
